@@ -1,7 +1,6 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
-import org.gradle.kotlin.dsl.implementation
-import org.jetbrains.compose.ExperimentalComposeLibrary
+import com.android.build.api.dsl.ApplicationExtension
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
@@ -48,14 +47,13 @@ kotlin {
         val desktopMain by getting
         
         commonMain.dependencies {
-            implementation(compose.runtime)
-            implementation(compose.foundation)
-            implementation(compose.material)
-            implementation(compose.material3)
-            implementation(compose.ui)
-            @OptIn(ExperimentalComposeLibrary::class)
-            implementation(compose.components.resources)
-            implementation(compose.materialIconsExtended)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material)
+            implementation(libs.material3)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.components.resources)
+            implementation(libs.material.icons.extended)
             implementation(libs.kotlinx.coroutines.core)
             implementation(libs.decompose)
             implementation(libs.decompose.extension)
@@ -78,7 +76,7 @@ kotlin {
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
-            implementation(compose.preview)
+            implementation(libs.compose.ui.tooling.preview)
             implementation(libs.sqldelight.sqlite.driver)
         }
         iosMain.dependencies {
@@ -93,13 +91,13 @@ kotlin {
     }
 }
 
-android {
+extensions.configure<ApplicationExtension> {
     namespace = "andy.zhu.minesweeper"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-    sourceSets["main"].res.srcDirs("src/androidMain/res")
-    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
+    sourceSets["main"].res.directories.add("src/androidMain/res")
+    sourceSets["main"].resources.directories.add("src/commonMain/resources")
 
     defaultConfig {
         applicationId = "andy.zhu.minesweeper"
@@ -142,10 +140,6 @@ compose.desktop {
 compose.resources {
     publicResClass = false
     generateResClass = auto
-}
-
-compose.experimental {
-    web.application {}
 }
 
 sqldelight {

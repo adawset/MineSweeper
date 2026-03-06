@@ -391,7 +391,7 @@ fun SwitchPreference(
 ) {
     Preference(
         title = title,
-        modifier = modifier.toggleable(value, enabled, Role.Switch, onValueChange),
+        modifier = modifier.toggleable(value, enabled, Role.Switch, null, onValueChange),
         enabled = enabled,
         icon = icon,
         summary = summary,
@@ -442,7 +442,7 @@ internal object ListPreferenceDefaults {
             modifier =
             Modifier.fillMaxWidth()
                 .heightIn(min = 48.dp)
-                .selectable(selected, true, Role.RadioButton, onClick)
+                .selectable(selected, true, Role.RadioButton, null, onClick)
                 .padding(horizontal = 24.dp, vertical = 8.dp),
             verticalAlignment = Alignment.CenterVertically
         ) {

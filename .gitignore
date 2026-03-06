@@ -19,3 +19,6 @@ captures
 # Kotlin
 .kotlin/
 kotlin-js-store/
+
+# db
+composeApp/database.db
