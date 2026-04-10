@@ -115,7 +115,7 @@ private fun numericRes(index: Int): DrawableResource {
 @Composable
 internal fun SimpleTopAppBar(title: String, alpha: Float = 1f, onBack: () -> Unit) {
     CenterAlignedTopAppBar(
-        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+        colors = TopAppBarDefaults.topAppBarColors(
             containerColor = MaterialTheme.colorScheme.surface.copy(alpha = alpha),
         ),
         title = { Text(title) },

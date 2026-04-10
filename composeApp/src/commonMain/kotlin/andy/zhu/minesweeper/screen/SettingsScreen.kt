@@ -24,13 +24,13 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.foundation.selection.toggleable
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.AlertDialogDefaults
+import androidx.compose.material3.BasicAlertDialog
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LocalContentColor
-import androidx.compose.material3.LocalMinimumInteractiveComponentEnforcement
+import androidx.compose.material3.LocalMinimumInteractiveComponentSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.ProvideTextStyle
@@ -559,7 +559,7 @@ internal fun PreferenceAlertDialog(
     modifier: Modifier = Modifier,
     content: @Composable () -> Unit
 ) {
-    AlertDialog(onDismissRequest = onDismissRequest, modifier = modifier) {
+    BasicAlertDialog(onDismissRequest = onDismissRequest, modifier = modifier) {
         Surface(
             modifier = Modifier.fillMaxWidth(),
             shape = AlertDialogDefaults.shape,
@@ -587,7 +587,7 @@ internal fun PreferenceAlertDialog(
                 ) {
                     AlertDialogFlowRow(mainAxisSpacing = 8.dp, crossAxisSpacing = 12.dp) {
                         CompositionLocalProvider(
-                            LocalMinimumInteractiveComponentEnforcement provides false,
+                            LocalMinimumInteractiveComponentSize provides 0.dp,
                             content = buttons
                         )
                     }

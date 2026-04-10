@@ -26,6 +26,7 @@ import com.arkivanov.decompose.extensions.compose.stack.animation.slide
 import com.arkivanov.decompose.extensions.compose.stack.animation.stackAnimation
 import com.arkivanov.decompose.extensions.compose.subscribeAsState
 import org.koin.compose.KoinApplication
+import org.koin.dsl.koinConfiguration
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,7 +46,7 @@ fun App(root: RootComponent) {
     }
 
     KoinApplication(
-        application = {
+        koinConfiguration {
             modules(dbModule)
         }
     ) {
