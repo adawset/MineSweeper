@@ -1,3 +1,4 @@
+import android.app.Application
 import android.os.Build
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
@@ -6,11 +7,12 @@ import androidx.compose.ui.input.pointer.PointerEvent
 import androidx.compose.ui.input.pointer.PointerEventPass
 import androidx.compose.ui.input.pointer.PointerEventType
 import andy.zhu.minesweeper.Database
-import andy.zhu.minesweeper.MineApplication
 import app.cash.sqldelight.db.SqlDriver
 import app.cash.sqldelight.driver.android.AndroidSqliteDriver
 import com.russhwolf.settings.Settings
 import com.russhwolf.settings.SharedPreferencesSettings
+
+lateinit var mineAndroidApp: Application
 
 object AndroidPlatform : Platform {
     override val name: String = "Android ${Build.VERSION.SDK_INT}"
@@ -18,7 +20,7 @@ object AndroidPlatform : Platform {
     override val isMobile: Boolean = true
 
     override fun getPreference(name: String?): Settings {
-        return SharedPreferencesSettings.Factory(MineApplication.instance).create(name)
+        return SharedPreferencesSettings.Factory(mineAndroidApp).create(name)
     }
 }
 
@@ -36,5 +38,5 @@ actual fun Modifier.onPointerEvent(
 ): Modifier = this
 
 actual fun createSqlDriver(): SqlDriver {
-    return AndroidSqliteDriver(Database.Schema, MineApplication.instance, "database.db")
+    return AndroidSqliteDriver(Database.Schema, mineAndroidApp, "database.db")
 }

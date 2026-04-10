@@ -1,12 +1,12 @@
 @file:OptIn(ExperimentalWasmDsl::class)
 
-import com.android.build.api.dsl.ApplicationExtension
+import com.android.build.api.dsl.LibraryExtension
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.androidLibrary)
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.kotlinx.serialization)
     alias(libs.plugins.compose.compiler)
@@ -24,7 +24,7 @@ kotlin {
         binaries.executable()
         useEsModules()
     }
-    
+
     androidTarget {
         compilerOptions {
         }
@@ -91,7 +91,7 @@ kotlin {
     }
 }
 
-extensions.configure<ApplicationExtension> {
+extensions.configure<LibraryExtension> {
     namespace = "andy.zhu.minesweeper"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
@@ -100,11 +100,7 @@ extensions.configure<ApplicationExtension> {
     sourceSets["main"].resources.directories.add("src/commonMain/resources")
 
     defaultConfig {
-        applicationId = "andy.zhu.minesweeper"
         minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
-        versionCode = 2
-        versionName = "1.0"
     }
     packaging {
         resources {
@@ -119,9 +115,6 @@ extensions.configure<ApplicationExtension> {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-    dependencies {
-        debugImplementation(libs.compose.ui.tooling)
     }
 }
 
